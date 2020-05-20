@@ -9,5 +9,15 @@
             "type": "Apache-2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0"
         }
-    ]
+    ],
+    "scripts": {
+        "build": "webpack --config config/webpack.config.js",
+        "dev-server": "webpack-dev-server --config config/webpack.config.js"
+    },
+    "devDependencies": {
+        "html-webpack-plugin": "^4.3.0",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.11.0"
+    }
 }
