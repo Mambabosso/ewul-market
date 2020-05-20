@@ -8,6 +8,7 @@ const config = {
 };
 
 
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -19,6 +20,17 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.vue$/,
+                loader: "vue-loader"
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "vue-style-loader",
+                    "css-loader"
+                ]
+            },
             {
                 test: /\.m?js$/,
                 exclude: /node_modules/,
@@ -32,6 +44,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             title: "ewul-market-webapp"
         })
