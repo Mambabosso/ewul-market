@@ -1,2 +1,6 @@
 # Node
 node_modules/
+
+# Result
+src/main/index.html
+src/main/bundle.js
