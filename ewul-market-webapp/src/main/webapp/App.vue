@@ -1,15 +1,17 @@
 <template>
-  <div class="app"></div>
+  <div class="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
 };
 </script>
 
 <style scoped>
 .app {
-  padding: 8px;
+  padding: 2px;
 }
 </style>
