@@ -18,6 +18,8 @@ import VueI18n from "./i18n/index";
 
 import Router from "./router/index";
 
+import "./widgets/index";
+
 // vue use
 
 Vue.use(BootstrapVue);

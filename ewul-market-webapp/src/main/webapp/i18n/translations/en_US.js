@@ -5,6 +5,7 @@ export default {
     password: "Password",
     login: "Login",
     reset: "Reset",
+    needhelp: "Can't login?",
     loading: "Loading..."
   }
 };
