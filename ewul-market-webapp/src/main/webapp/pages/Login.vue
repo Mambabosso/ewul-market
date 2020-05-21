@@ -4,31 +4,14 @@
     <b-form @submit.stop.prevent @submit="login" @reset="reset">
       <div class="input my-4">
         <label for="username">{{ $t("login.username") }}</label>
-        <b-input
-          v-model="username"
-          :state="usernamePossible"
-          id="username"
-          required
-          :readonly="loading"
-        ></b-input>
+        <b-input v-model="username" :state="usernamePossible" id="username" required :readonly="loading"></b-input>
         <hr />
         <label for="password">{{ $t("login.password") }}</label>
-        <b-input
-          type="password"
-          v-model="password"
-          :state="passwordPossible"
-          id="password"
-          required
-          :readonly="loading"
-        ></b-input>
+        <b-input type="password" v-model="password" :state="passwordPossible" id="password" required :readonly="loading"></b-input>
       </div>
       <div v-if="!loading">
-        <b-button type="submit" variant="primary">{{
-          $t("login.login")
-        }}</b-button>
-        <b-button type="reset" variant="warning">{{
-          $t("login.reset")
-        }}</b-button>
+        <b-button type="submit" variant="primary">{{ $t("login.login") }}</b-button>
+        <b-button type="reset" variant="warning">{{ $t("login.reset") }}</b-button>
       </div>
       <div v-else>
         <b-button type="submit" variant="primary" disabled>
@@ -47,7 +30,7 @@ export default {
     return {
       loading: false,
       username: "",
-      password: "",
+      password: ""
     };
   },
   methods: {
@@ -67,7 +50,7 @@ export default {
     isPasswordPossible() {
       let length = this.password.length;
       return length > 0 && length < 50;
-    },
+    }
   },
   computed: {
     usernamePossible() {
@@ -75,8 +58,8 @@ export default {
     },
     passwordPossible() {
       return this.isPasswordPossible();
-    },
-  },
+    }
+  }
 };
 </script>
 

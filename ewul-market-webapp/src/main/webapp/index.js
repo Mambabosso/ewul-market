@@ -1,12 +1,14 @@
-import Vue from "vue";
-
-import BootstrapVue from "bootstrap-vue";
-
 // import css
 
 import "bootstrap/dist/css/bootstrap.css";
 
 import "bootstrap-vue/dist/bootstrap-vue.css";
+
+// import
+
+import Vue from "vue";
+
+import BootstrapVue from "bootstrap-vue";
 
 // import emw
 
@@ -30,7 +32,7 @@ const v = new Vue({
   el: "#emw",
   i18n: VueI18n,
   router: Router,
-  render: (h) => h(App),
+  render: (h) => h(App)
 });
 
 export default v;

@@ -4,7 +4,7 @@ const src = path.resolve(__dirname, "../", "src", "main");
 const config = {
   entry: path.resolve(src, "webapp", "index.js"),
   output: "bundle.js",
-  devServerPort: 9000,
+  devServerPort: 9000
 };
 
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
@@ -15,17 +15,17 @@ module.exports = {
   entry: config.entry,
   output: {
     path: src,
-    filename: config.output,
+    filename: config.output
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: "vue-loader",
+        loader: "vue-loader"
       },
       {
         test: /\.css$/,
-        use: ["vue-style-loader", "style-loader", "css-loader"],
+        use: ["vue-style-loader", "style-loader", "css-loader"]
       },
       {
         test: /\.m?js$/,
@@ -33,26 +33,26 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"],
-          },
-        },
-      },
-    ],
+            presets: ["@babel/preset-env"]
+          }
+        }
+      }
+    ]
   },
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title: "ewul-market-webapp",
-    }),
+      title: "ewul-market-webapp"
+    })
   ],
   performance: {
     maxEntrypointSize: 2000000,
-    maxAssetSize: 2000000,
+    maxAssetSize: 2000000
   },
   devServer: {
     contentBase: src,
     port: config.devServerPort,
     inline: true,
-    hot: true,
-  },
+    hot: true
+  }
 };
