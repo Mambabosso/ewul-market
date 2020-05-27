@@ -18,7 +18,11 @@ public class TokenDAO extends BaseDAO<Token, UUID> {
 
     @Override
     protected UUID insert(@NonNull final Token entity) {
-        return null;
+        return (UUID) session().save(entity);
+    }
+
+    public Token get(@NonNull final UUID id) {
+        return query(0, 1).select(_token).from(_token).where(_token.id.eq(id)).fetchFirst();
     }
 
 }

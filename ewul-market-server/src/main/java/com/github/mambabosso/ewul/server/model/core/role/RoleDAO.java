@@ -18,7 +18,11 @@ public class RoleDAO extends BaseDAO<Role, UUID> {
 
     @Override
     protected UUID insert(@NonNull final Role entity) {
-        return null;
+        return (UUID) session().save(entity);
+    }
+
+    public Role get(@NonNull final UUID id) {
+        return query(0, 1).select(_role).from(_role).where(_role.id.eq(id)).fetchFirst();
     }
 
 }

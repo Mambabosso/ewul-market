@@ -18,7 +18,11 @@ public class PasswordDAO extends BaseDAO<Password, UUID> {
 
     @Override
     protected UUID insert(@NonNull final Password entity) {
-        return null;
+        return (UUID) session().save(entity);
+    }
+
+    public Password get(@NonNull final UUID id) {
+        return query(0, 1).select(_password).from(_password).where(_password.id.eq(id)).fetchFirst();
     }
 
 }

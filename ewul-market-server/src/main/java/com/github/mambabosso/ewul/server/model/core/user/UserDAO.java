@@ -18,7 +18,11 @@ public class UserDAO extends BaseDAO<User, UUID> {
 
     @Override
     protected UUID insert(@NonNull final User entity) {
-        return null;
+        return (UUID) session().save(entity);
+    }
+
+    public User get(@NonNull final UUID id) {
+        return query(0, 1).select(_user).from(_user).where(_user.id.eq(id)).fetchFirst();
     }
 
 }
