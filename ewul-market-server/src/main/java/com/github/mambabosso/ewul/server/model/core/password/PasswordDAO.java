@@ -17,7 +17,7 @@ public class PasswordDAO extends BaseDAO<Password, UUID> {
     }
 
     @Override
-    protected UUID insert(@NonNull final Password entity) {
+    public UUID insert(@NonNull final Password entity) {
         return (UUID) session().save(entity);
     }
 

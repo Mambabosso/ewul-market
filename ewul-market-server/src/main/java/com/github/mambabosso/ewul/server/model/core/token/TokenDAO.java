@@ -17,7 +17,7 @@ public class TokenDAO extends BaseDAO<Token, UUID> {
     }
 
     @Override
-    protected UUID insert(@NonNull final Token entity) {
+    public UUID insert(@NonNull final Token entity) {
         return (UUID) session().save(entity);
     }
 

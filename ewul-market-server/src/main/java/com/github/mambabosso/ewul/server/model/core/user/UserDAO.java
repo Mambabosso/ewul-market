@@ -17,7 +17,7 @@ public class UserDAO extends BaseDAO<User, UUID> {
     }
 
     @Override
-    protected UUID insert(@NonNull final User entity) {
+    public UUID insert(@NonNull final User entity) {
         return (UUID) session().save(entity);
     }
 

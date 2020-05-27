@@ -17,7 +17,7 @@ public class RoleDAO extends BaseDAO<Role, UUID> {
     }
 
     @Override
-    protected UUID insert(@NonNull final Role entity) {
+    public UUID insert(@NonNull final Role entity) {
         return (UUID) session().save(entity);
     }
 
