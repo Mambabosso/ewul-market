@@ -10,4 +10,6 @@ public interface Persistable<PK extends Serializable> extends Serializable {
 
     public DateTime getCreatedAt();
 
+    public boolean isLocked();
+
 }

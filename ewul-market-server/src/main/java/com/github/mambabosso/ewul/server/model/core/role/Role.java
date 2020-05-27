@@ -1,4 +1,4 @@
-package com.github.mambabosso.ewul.server.model.password;
+package com.github.mambabosso.ewul.server.model.core.role;
 
 import com.github.mambabosso.ewul.server.model.Persistable;
 import lombok.*;
@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
 @Data
@@ -14,23 +15,20 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "password")
-public final class Password implements Persistable<UUID> {
+@Table(name = "role")
+public final class Role implements Persistable<UUID> {
 
     @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "password_id", updatable = false)
+    @Column(name = "role_id", updatable = false)
     private UUID id;
 
     @NotNull
-    @Column(name = "hash", updatable = false)
-    private String hash;
-
-    @NotNull
-    @Column(name = "last_access")
-    private DateTime lastAccess;
+    @Pattern(regexp = "^.{1,50}$", message = "invalid role name")
+    @Column(name = "name", unique = true)
+    private String name;
 
     @NotNull
     @Column(name = "created_at", updatable = false)
@@ -39,5 +37,9 @@ public final class Password implements Persistable<UUID> {
     @NotNull
     @Column(name = "locked")
     private boolean locked;
+
+    public Role(final String name) {
+        this.name = name;
+    }
 
 }
