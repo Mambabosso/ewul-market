@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public class PasswordDAO extends BaseDAO<Password, UUID> {
 
+    private final QPassword _password = QPassword.password;
+
     @Inject
     public PasswordDAO(final SessionFactory sessionFactory) {
         super(sessionFactory);

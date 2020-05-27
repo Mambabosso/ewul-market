@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public class RoleDAO extends BaseDAO<Role, UUID> {
 
+    private final QRole _role = QRole.role;
+
     @Inject
     public RoleDAO(final SessionFactory sessionFactory) {
         super(sessionFactory);

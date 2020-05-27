@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public class UserDAO extends BaseDAO<User, UUID> {
 
+    private final QUser _user = QUser.user;
+
     @Inject
     public UserDAO(final SessionFactory sessionFactory) {
         super(sessionFactory);
