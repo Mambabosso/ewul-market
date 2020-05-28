@@ -21,11 +21,12 @@
     </licenses>
 
     <properties>
-        <dropwizard.version>2.0.9</dropwizard.version>
+        <dropwizard.version>2.0.10</dropwizard.version>
         <querydsl.version>4.3.1</querydsl.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <auth0.java-jwt.version>3.10.3</auth0.java-jwt.version>
         <lombok.version>1.18.12</lombok.version>
+        <guicey.version>5.0.1</guicey.version>
         <maven-compiler>8</maven-compiler>
     </properties>
 
@@ -80,6 +81,12 @@
         </dependency>
 
         <dependency>
+            <groupId>ru.vyarus</groupId>
+            <artifactId>dropwizard-guicey</artifactId>
+            <version>${guicey.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -111,7 +118,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- -->
