@@ -25,4 +25,8 @@ public class PasswordDAO extends BaseDAO<Password, UUID> {
         return query(0, 1).select(_password).from(_password).where(_password.id.eq(id)).fetchFirst();
     }
 
+    public long delete(@NonNull final UUID id) {
+        return delete(_password).where(_password.id.eq(id)).execute();
+    }
+
 }
