@@ -25,6 +25,10 @@ public class RoleDAO extends BaseDAO<Role, UUID> {
         return query(0, 1).select(_role).from(_role).where(_role.id.eq(id)).fetchFirst();
     }
 
+    public Role getByName(@NonNull final String name) {
+        return query(0, 1).select(_role).from(_role).where(_role.name.eq(name)).fetchFirst();
+    }
+
     public long delete(@NonNull final UUID id) {
         return delete(_role).where(_role.id.eq(id)).execute();
     }

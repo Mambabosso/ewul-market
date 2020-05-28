@@ -25,6 +25,10 @@ public class UserDAO extends BaseDAO<User, UUID> {
         return query(0, 1).select(_user).from(_user).where(_user.id.eq(id)).fetchFirst();
     }
 
+    public User getByName(@NonNull final String name) {
+        return query(0, 1).select(_user).from(_user).where(_user.name.eq(name)).fetchFirst();
+    }
+
     public long delete(@NonNull final UUID id) {
         return delete(_user).where(_user.id.eq(id)).execute();
     }
