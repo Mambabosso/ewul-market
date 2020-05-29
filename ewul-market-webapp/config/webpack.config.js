@@ -1,5 +1,6 @@
 const path = require("path");
 const src = path.resolve(__dirname, "../", "src", "main");
+const modules = path.resolve(__dirname, "../", "node_modules");
 
 const config = {
   entry: path.resolve(src, "webapp", "index.js"),
@@ -17,6 +18,10 @@ module.exports = {
     path: src,
     filename: config.output
   },
+  resolve: {
+    extensions: [".js", ".vue", ".css", ".scss", ".json"],
+    modules: [src, modules]
+  },
   module: {
     rules: [
       {
@@ -25,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.m?js$/,
-        exclude: /node_modules/,
+        exclude: modules,
         use: {
           loader: "babel-loader",
           options: {
@@ -38,7 +43,7 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.(scss)$/,
+        test: /\.scss$/,
         use: [
           {
             loader: "style-loader"
@@ -74,7 +79,7 @@ module.exports = {
   devServer: {
     contentBase: src,
     port: config.devServerPort,
-    inline: true,
+    watchContentBase: true,
     hot: true
   }
 };
