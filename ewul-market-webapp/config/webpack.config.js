@@ -24,10 +24,6 @@ module.exports = {
         loader: "vue-loader"
       },
       {
-        test: /\.css$/,
-        use: ["vue-style-loader", "style-loader", "css-loader"]
-      },
-      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
@@ -36,6 +32,32 @@ module.exports = {
             presets: ["@babel/preset-env"]
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(scss)$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins() {
+                return [require("autoprefixer")];
+              }
+            }
+          },
+          {
+            loader: "sass-loader"
+          }
+        ]
       }
     ]
   },
