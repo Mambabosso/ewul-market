@@ -62,10 +62,10 @@ public final class Result<T> implements Serializable {
         return result;
     }
 
-    public static <T> Result<T> failure(@NonNull final ErrorCode errorCode) {
+    public static <T> Result<T> failure(final ErrorCode errorCode) {
         Result<T> result = new Result<>();
         result.success = false;
-        result.error = errorCode;
+        result.error = (errorCode != null) ? errorCode : ErrorCode.create(-1);
         return result;
     }
 
