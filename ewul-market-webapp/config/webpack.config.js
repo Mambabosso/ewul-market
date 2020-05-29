@@ -1,5 +1,6 @@
 const path = require("path");
 const src = path.resolve(__dirname, "../", "src", "main");
+const ssrc = path.resolve(src, "webapp");
 const modules = path.resolve(__dirname, "../", "node_modules");
 
 const config = {
@@ -20,7 +21,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".vue", ".css", ".scss", ".json"],
-    modules: [src, modules]
+    modules: [ssrc, modules]
   },
   module: {
     rules: [
@@ -77,9 +78,8 @@ module.exports = {
     maxAssetSize: 2000000
   },
   devServer: {
-    contentBase: src,
+    contentBase: ssrc,
     port: config.devServerPort,
-    watchContentBase: true,
     hot: true
   }
 };
