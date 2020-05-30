@@ -1,4 +1,7 @@
 export default {
+  error: {
+    "404": "User already exists"
+  },
   login: {
     title: "ewul Market",
     username: "Username",

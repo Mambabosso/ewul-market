@@ -16,14 +16,20 @@
       <div class="row">
         <div class="col-6">
           <label for="password">{{ $t("register.password") }}</label>
-          <b-input v-model="password" :state="passwordPossible" id="password" required :readonly="loading"></b-input>
+          <b-input type="password" v-model="password" :state="passwordPossible" id="password" required :readonly="loading"></b-input>
         </div>
         <div class="col-6">
           <label for="confirm">{{ $t("register.confirm") }}</label>
-          <b-input v-model="confirm" :state="passwordPossible" id="confirm" required :readonly="loading"></b-input>
+          <b-input type="password" v-model="confirm" :state="passwordPossible" id="confirm" required :readonly="loading"></b-input>
         </div>
       </div>
       <hr />
+      <div v-if="error">
+        <b-alert show variant="danger">
+          {{ error }}
+        </b-alert>
+        <hr />
+      </div>
       <div v-if="!loading">
         <b-link to="/login">{{ $t("register.loginlink") }}</b-link>
         <b-button class="float-right" type="submit" variant="primary">{{ $t("register.register") }}</b-button>
@@ -39,11 +45,14 @@
 </template>
 
 <script>
+import register from "./../../services/register";
+
 export default {
   name: "Register",
   data() {
     return {
       loading: false,
+      error: null,
       username: "",
       email: "",
       password: "",
@@ -53,6 +62,19 @@ export default {
   methods: {
     register() {
       if (this.isUsernamePossible() && this.isEmailPossible() && this.isPasswordPossible()) {
+        this.error = null;
+        this.loading = true;
+        register(this.username, this.email, this.password)
+          .then((result) => {
+            if (result.success) {
+            }
+          })
+          .catch((ex) => {
+            this.error = this.$t("error." + ex.response.data.error.code);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
       }
     },
     reset() {
@@ -70,9 +92,8 @@ export default {
       return length > 0 && length < 50;
     },
     isPasswordPossible() {
-      let length1 = this.password.length;
-      let length2 = this.confirm.length;
-      return length1 > 0 && length1 < 50 && length2 > 0 && length2 < 50 && this.password === this.confirm;
+      let length = this.password.length;
+      return length > 0 && length < 50 && this.password === this.confirm;
     }
   },
   computed: {
