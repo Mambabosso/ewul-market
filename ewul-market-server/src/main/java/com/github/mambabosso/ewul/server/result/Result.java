@@ -4,12 +4,13 @@ import com.github.mambabosso.ewul.server.error.ErrorCode;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
-import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 @EqualsAndHashCode
-public final class Result<T> implements Serializable {
+public final class Result<T> {
 
     private boolean success;
     private T value;
@@ -33,19 +34,32 @@ public final class Result<T> implements Serializable {
         throw error.getException();
     }
 
-    public <X> X unwrap(@NonNull final Function<T, X> function) throws Exception {
-        return function.apply(getOrThrow());
-    }
-
     public ErrorCode getError() {
         return error;
     }
 
+    public Result<T> removeValue() {
+        this.value = null;
+        return this;
+    }
+
+    public <X> X unwrap(@NonNull final Function<T, X> function) throws Exception {
+        return function.apply(getOrThrow());
+    }
+
     public Optional<T> optional() {
+        return Optional.ofNullable(value);
+    }
+
+    public Map<String, Object> map() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", success);
         if (success) {
-            return Optional.of(value);
+            map.put("value", value);
+        } else {
+            map.put("error", error);
         }
-        return Optional.empty();
+        return map;
     }
 
     public <X> Result<X> byError() {
