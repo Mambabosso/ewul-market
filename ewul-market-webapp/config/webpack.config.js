@@ -6,7 +6,10 @@ const modules = path.resolve(__dirname, "../", "node_modules");
 const config = {
   entry: path.resolve(src, "webapp", "index.js"),
   output: "bundle.js",
-  devServerPort: 9000
+  devServerPort: 9000,
+  devServerProxy: {
+    "/api": "http://localhost:8080"
+  }
 };
 
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
@@ -80,6 +83,7 @@ module.exports = {
   devServer: {
     contentBase: ssrc,
     port: config.devServerPort,
-    hot: true
+    hot: true,
+    proxy: config.devServerProxy
   }
 };
