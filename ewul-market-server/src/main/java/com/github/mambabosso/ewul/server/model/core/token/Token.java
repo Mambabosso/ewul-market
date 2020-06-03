@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "token")
-public final class Token implements Persistable<UUID> {
+public class Token implements Persistable<UUID> {
 
     @Setter(AccessLevel.NONE)
     @Id

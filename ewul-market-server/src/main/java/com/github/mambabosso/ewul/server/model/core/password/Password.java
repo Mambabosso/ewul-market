@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "password")
-public final class Password implements Persistable<UUID> {
+public class Password implements Persistable<UUID> {
 
     @Setter(AccessLevel.NONE)
     @Id

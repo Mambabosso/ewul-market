@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "role")
-public final class Role implements Persistable<UUID> {
+public class Role implements Persistable<UUID> {
 
     @Setter(AccessLevel.NONE)
     @Id
