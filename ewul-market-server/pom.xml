@@ -27,7 +27,7 @@
         <auth0.java-jwt.version>3.10.3</auth0.java-jwt.version>
         <lombok.version>1.18.12</lombok.version>
         <guicey.version>5.1.0</guicey.version>
-        <maven-compiler>8</maven-compiler>
+        <maven-compiler>1.8</maven-compiler>
     </properties>
 
     <dependencyManagement>
@@ -137,6 +137,12 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                 </plugin>
@@ -162,7 +168,10 @@
                         </goals>
                         <configuration>
                             <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                            <processors>
+                                <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                                <processor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</processor>
+                            </processors>
                             <options>
                                 <querydsl.entityAccessors>true</querydsl.entityAccessors>
                             </options>
@@ -173,8 +182,17 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <source>${maven-compiler}</source>
                     <target>${maven-compiler}</target>
                 </configuration>
