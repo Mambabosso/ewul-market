@@ -1,4 +1,4 @@
-package com.github.mambabosso.ewul.server.validator;
+package com.github.mambabosso.ewul.server.validation;
 
 public interface Validator<T> {
 

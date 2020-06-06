@@ -1,17 +1,18 @@
 package com.github.mambabosso.ewul.server.model.core.password;
 
 import com.github.mambabosso.ewul.server.dao.BaseDAOService;
-import com.github.mambabosso.ewul.server.error.Errors;
-import com.github.mambabosso.ewul.server.result.Result;
-import com.github.mambabosso.ewul.server.validator.Validator;
+import com.github.mambabosso.ewul.server.error.NotFoundException;
+import com.github.mambabosso.ewul.server.error.UnknownErrorException;
+import com.github.mambabosso.ewul.server.error.ValidationFailureException;
+import com.github.mambabosso.ewul.server.validation.Validator;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 import java.util.UUID;
 
+@Slf4j
 public class PasswordService extends BaseDAOService<PasswordDAO> {
 
     @Inject
@@ -19,50 +20,49 @@ public class PasswordService extends BaseDAOService<PasswordDAO> {
         super(baseDAO);
     }
 
-    public Result<Password> create(final Validator<String> plain_password) {
-        try {
-            if (plain_password == null || !plain_password.isValid()) {
-                return Result.failure(Errors.PASSWORD_VALIDATION_FAILURE.get());
-            }
-            PasswordDAO dao = getBaseDAO();
-            Password password = new Password();
-            password.setHash(BCrypt.hashpw(plain_password.get(), BCrypt.gensalt(14)));
-            password.setLastAccess(DateTime.now());
-            password.setCreatedAt(password.getLastAccess());
-            UUID id = dao.insert(password);
-            if (id != null) {
-                return Result.success(dao.get(id));
-            }
-            return Result.failure(Errors.UNKNOWN_PASSWORD_FAILURE.get());
-        } catch (PersistenceException ex) {
-            return Result.failure(Errors.PASSWORD_PERSISTENCE_FAILURE.get(ex));
-        } catch (ConstraintViolationException ex) {
-            return Result.failure(Errors.PASSWORD_VALIDATION_FAILURE.get(ex));
-        } catch (Exception ex) {
-            return Result.failure(Errors.UNKNOWN_PASSWORD_FAILURE.get(ex));
+    public Password create(final Validator<String> plain_password) {
+
+        if (plain_password == null || !plain_password.isValid()) {
+            throw new ValidationFailureException();
         }
+
+        PasswordDAO dao = getBaseDAO();
+        Password password = new Password();
+        password.setHash(BCrypt.hashpw(plain_password.get(), BCrypt.gensalt(14)));
+        password.setLastAccess(DateTime.now());
+        password.setCreatedAt(password.getLastAccess());
+        UUID id = dao.insert(password);
+        if (id != null) {
+            Password result = dao.get(id);
+            log.info("#create -> {}", result);
+            return result;
+        }
+        throw new UnknownErrorException();
+
     }
 
-    public Result<Password> get(final UUID id) {
-        try {
-            PasswordDAO dao = getBaseDAO();
-            Password password = dao.get(id);
-            if (password != null) {
-                return Result.success(password);
-            }
-            return Result.failure(Errors.PASSWORD_NOT_FOUND.get());
-        } catch (Exception ex) {
-            return Result.failure(Errors.UNKNOWN_PASSWORD_FAILURE.get(ex));
+    public Password get(final UUID id) {
+
+        PasswordDAO dao = getBaseDAO();
+        Password password = dao.get(id);
+        if (password != null) {
+            log.info("#get -> {}", password);
+            return password;
         }
+        throw new NotFoundException();
+
     }
 
-    public Result<Long> delete(final UUID id) {
-        try {
-            PasswordDAO dao = getBaseDAO();
-            return Result.success(dao.delete(id));
-        } catch (Exception ex) {
-            return Result.failure(Errors.UNKNOWN_PASSWORD_FAILURE.get(ex));
+    public long delete(final UUID id) {
+
+        PasswordDAO dao = getBaseDAO();
+        long result = dao.delete(id);
+        if (result > 0) {
+            log.info("#delete -> {}", id);
+            return result;
         }
+        throw new NotFoundException();
+
     }
 
 }

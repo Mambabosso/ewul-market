@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,12 +29,9 @@ public class RegisterResource {
         String username = dataMap.getString("username");
         String password = dataMap.getString("password");
 
-        Result<User> user = registerService.register(username, password).removeValue();
+        Result<User> user = registerService.register(username, password);
 
-        if (user.isSuccess()) {
-            return Response.status(200).entity(user.map()).build();
-        }
-        return Response.status(400).entity(user.map()).build();
+        return user.toResponse(200, 400);
     }
 
 }
