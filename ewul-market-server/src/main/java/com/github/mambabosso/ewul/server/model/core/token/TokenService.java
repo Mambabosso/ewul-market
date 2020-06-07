@@ -54,6 +54,18 @@ public class TokenService extends BaseDAOService<TokenDAO> {
 
     }
 
+    public Token getByValue(final String value) {
+
+        TokenDAO dao = getBaseDAO();
+        Token token = dao.getByValue(value);
+        if (token != null) {
+            log.info("#getByValue -> {}", token);
+            return token;
+        }
+        throw new NotFoundException();
+
+    }
+
     public long delete(final UUID id) {
 
         TokenDAO dao = getBaseDAO();

@@ -25,6 +25,10 @@ public class TokenDAO extends BaseDAO<Token, UUID> {
         return query(0, 1).select(_token).from(_token).where(_token.id.eq(id)).fetchFirst();
     }
 
+    public Token getByValue(@NonNull final String value) {
+        return query(0, 1).select(_token).from(_token).where(_token.value.eq(value)).fetchFirst();
+    }
+
     public long delete(@NonNull final UUID id) {
         return delete(_token).where(_token.id.eq(id)).execute();
     }
