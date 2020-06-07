@@ -1,5 +1,6 @@
 package com.github.mambabosso.ewul.server;
 
+import com.github.mambabosso.ewul.server.config.JWTConfig;
 import com.github.mambabosso.ewul.server.config.RegexValidationConfig;
 import io.dropwizard.hibernate.HibernateBundle;
 import lombok.NonNull;
@@ -17,7 +18,12 @@ public class EwulMarketModule extends DropwizardAwareModule<EwulMarketConfigurat
     @Override
     protected void configure() {
         bind(SessionFactory.class).toInstance(hibernateBundle.getSessionFactory());
-        bind(RegexValidationConfig.class).toInstance(configuration().getRegexValidationConfig());
+        bindConfig(configuration());
+    }
+
+    private void bindConfig(EwulMarketConfiguration configuration) {
+        bind(JWTConfig.class).toInstance(configuration.getJwtConfig());
+        bind(RegexValidationConfig.class).toInstance(configuration.getRegexValidationConfig());
     }
 
 }
