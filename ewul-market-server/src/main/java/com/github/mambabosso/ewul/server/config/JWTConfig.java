@@ -14,8 +14,8 @@ public class JWTConfig {
 
     private String issuer = "ewul";
 
-    private Duration refreshLifetime;
+    private Duration refreshLifetime = Duration.days(28);
 
-    private Duration accessLifetime;
+    private Duration accessLifetime = Duration.minutes(30);
 
 }
