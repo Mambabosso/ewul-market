@@ -12,21 +12,21 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SimpleUser implements Principal, Serializable {
+public class BasicUser implements Principal, Serializable {
 
     private String name;
     private UserType type;
     private @Singular Set<String> roles;
 
-    public static SimpleUser from(@NonNull final User user) {
+    public static BasicUser from(@NonNull final User user) {
         String userName = user.getName();
         UserType userType = user.getType();
         Set<Role> userRoles = user.getRoles();
         if (userRoles != null) {
             Set<String> roles = userRoles.stream().map(Role::getName).collect(Collectors.toSet());
-            return SimpleUser.builder().name(userName).type(userType).roles(roles).build();
+            return BasicUser.builder().name(userName).type(userType).roles(roles).build();
         } else {
-            return SimpleUser.builder().name(userName).type(userType).build();
+            return BasicUser.builder().name(userName).type(userType).build();
         }
     }
 

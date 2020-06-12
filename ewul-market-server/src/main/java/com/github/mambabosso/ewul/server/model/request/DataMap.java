@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -15,6 +12,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor(onConstructor_ = @JsonCreator)
 @NoArgsConstructor
+@Builder
 public class DataMap implements Serializable {
 
     private static ObjectMapper mapper;
@@ -34,9 +32,9 @@ public class DataMap implements Serializable {
         return getMapper().convertValue(obj, convertTo);
     }
 
-    private Map<String, Object> values;
+    private @Singular Map<String, Object> values;
 
-    public Object get(final String key) {
+    public Object get(@NonNull final String key) {
         if (values != null && values.containsKey(key)) {
             return values.get(key);
         }

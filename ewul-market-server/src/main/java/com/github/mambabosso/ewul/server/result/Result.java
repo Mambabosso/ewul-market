@@ -1,6 +1,7 @@
 package com.github.mambabosso.ewul.server.result;
 
 import com.github.mambabosso.ewul.server.error.EwulException;
+import com.github.mambabosso.ewul.server.error.UnknownErrorException;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
@@ -62,6 +63,10 @@ public final class Result<T> {
         result.success = false;
         result.error = error;
         return result;
+    }
+
+    public static <T> Result<T> failure(@NonNull final Exception error) {
+        return failure(new UnknownErrorException(error));
     }
 
 }

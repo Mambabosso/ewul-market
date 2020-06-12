@@ -35,7 +35,12 @@ public final class JWTHandler {
         builder.withExpiresAt(expiresAt.toDate());
 
         for (JWTClaim<?> claim : claims) {
-            builder.withClaim(claim.getName(), claim.toMap());
+            Object value = claim.getValue();
+            if (value instanceof String) {
+                builder.withClaim(claim.getName(), (String) value);
+            } else {
+                builder.withClaim(claim.getName(), claim.toMap());
+            }
         }
 
         return builder.sign(algorithm);
